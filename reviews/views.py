@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from reviews.models import Review
 from rest_framework import status
-from reviews.serializers import ReviewSerializer
+from reviews.serializers import ReviewModelSerializer
 
 
 class CreateListReview(APIView):
@@ -10,11 +10,11 @@ class CreateListReview(APIView):
     def get(self, request):
         queryset = Review.objects.all()
 
-        serializer = ReviewSerializer(queryset, many=True)
+        serializer = ReviewModelSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = ReviewSerializer(data=request.data)
+        serializer = ReviewModelSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -37,7 +37,7 @@ class DetailUpdateDeleteReview(APIView):
         if review is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = ReviewSerializer(review)
+        serializer = ReviewModelSerializer(review)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):
@@ -46,7 +46,7 @@ class DetailUpdateDeleteReview(APIView):
         if review is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = ReviewSerializer(review, data=request.data)
+        serializer = ReviewModelSerializer(review, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

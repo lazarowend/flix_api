@@ -2,14 +2,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from genres.models import Genre
-from genres.serializers import GenreSerializer
+from genres.serializers import GenreModelSerializer
 
 
 class CreateListGenre(APIView):
     
     def get(self, request):
         queryset = Genre.objects.all()
-        serializer = GenreSerializer(queryset, many=True)
+        serializer = GenreModelSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -19,7 +19,7 @@ class CreateListGenre(APIView):
         if genre.exists():
             return Response('Genre already exists', status=status.HTTP_200_OK)
 
-        serializer = GenreSerializer(data=request.data)
+        serializer = GenreModelSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -42,7 +42,7 @@ class DetailUpdateDeleteGenre(APIView):
         if genre is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = GenreSerializer(genre)
+        serializer = GenreModelSerializer(genre)
         return Response(serializer.data)
 
     def put(self, request, pk):
@@ -51,7 +51,7 @@ class DetailUpdateDeleteGenre(APIView):
         if genre is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = GenreSerializer(genre, data=request.data)
+        serializer = GenreModelSerializer(genre, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

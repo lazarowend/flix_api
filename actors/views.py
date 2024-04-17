@@ -2,14 +2,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from actors.models import Actor
-from actors.serializers import ActorSerializer
+from actors.serializers import ActorModelSerializer
 
 
 class CreateListActor(APIView):
 
     def get(self, request):
         queryset = Actor.objects.all()
-        serializer = ActorSerializer(queryset, many=True)
+        serializer = ActorModelSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -19,7 +19,7 @@ class CreateListActor(APIView):
         if actor.exists():
             return Response('Actor already exists', status=status.HTTP_200_OK)
         
-        serializer = ActorSerializer(data=request.data)
+        serializer = ActorModelSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -43,7 +43,7 @@ class DetailUpdateDeleteActor(APIView):
         if actor is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = ActorSerializer(actor)
+        serializer = ActorModelSerializer(actor)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -53,7 +53,7 @@ class DetailUpdateDeleteActor(APIView):
         if actor is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = ActorSerializer(actor, data=request.data)
+        serializer = ActorModelSerializer(actor, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

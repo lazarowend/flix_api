@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from movies.models import Movie
-from movies.serializers import MovieSerializer
+from movies.serializers import MovieModelSerializer
 
 
 class CreateListMovie(APIView):
@@ -10,7 +10,7 @@ class CreateListMovie(APIView):
     def get(self, request):
         queryset = Movie.objects.all()
 
-        serializer = MovieSerializer(queryset, many=True)
+        serializer = MovieModelSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -20,7 +20,7 @@ class CreateListMovie(APIView):
         if movie.exists():
             return Response('Movie already exists', status=status.HTTP_200_OK)
 
-        serializer = MovieSerializer(data=request.data)
+        serializer = MovieModelSerializer(data=request.data)
         
         if serializer.is_valid():
             serializer.save()
@@ -45,7 +45,7 @@ class DetailUpdateDeleteMovie(APIView):
         if movie is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = MovieSerializer(movie)
+        serializer = MovieModelSerializer(movie)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):
@@ -54,7 +54,7 @@ class DetailUpdateDeleteMovie(APIView):
         if movie is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = MovieSerializer(movie, data=request.data)
+        serializer = MovieModelSerializer(movie, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
