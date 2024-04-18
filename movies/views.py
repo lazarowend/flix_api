@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from movies.models import Movie
 from movies.serializers import MovieModelSerializer
-
+from rest_framework.permissions import IsAuthenticated
 
 class CreateListMovie(APIView):
+    permission_classes = (IsAuthenticated, )
 
     def get(self, request):
         queryset = Movie.objects.all()
@@ -30,8 +31,8 @@ class CreateListMovie(APIView):
     
 
 class DetailUpdateDeleteMovie(APIView):
+    permission_classes = (IsAuthenticated, )
 
-    
     def get_object(self, pk):
         try:
             return Movie.objects.get(pk=pk)

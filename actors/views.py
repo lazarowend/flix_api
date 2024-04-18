@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from actors.models import Actor
 from actors.serializers import ActorModelSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class CreateListActor(APIView):
-
+    permission_classes = (IsAuthenticated, )
+    
     def get(self, request):
         queryset = Actor.objects.all()
         serializer = ActorModelSerializer(queryset, many=True)
@@ -29,6 +31,7 @@ class CreateListActor(APIView):
         
 
 class DetailUpdateDeleteActor(APIView):
+    permission_classes = (IsAuthenticated, )
 
     def get_object(self, pk):
         try:

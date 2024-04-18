@@ -3,9 +3,11 @@ from rest_framework.response import Response
 from reviews.models import Review
 from rest_framework import status
 from reviews.serializers import ReviewModelSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class CreateListReview(APIView):
+    permission_classes = (IsAuthenticated, )
 
     def get(self, request):
         queryset = Review.objects.all()
@@ -24,7 +26,8 @@ class CreateListReview(APIView):
 
 
 class DetailUpdateDeleteReview(APIView):
-    
+    permission_classes = (IsAuthenticated, )
+
     def get_object(self, pk):
         try:
             return Review.objects.get(pk=pk)

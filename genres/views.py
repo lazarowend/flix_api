@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from genres.models import Genre
 from genres.serializers import GenreModelSerializer
-
+from rest_framework.permissions import IsAuthenticated
 
 class CreateListGenre(APIView):
-    
+    permission_classes = (IsAuthenticated, )
+
     def get(self, request):
         queryset = Genre.objects.all()
         serializer = GenreModelSerializer(queryset, many=True)
@@ -29,7 +30,8 @@ class CreateListGenre(APIView):
 
 
 class DetailUpdateDeleteGenre(APIView):
-    
+    permission_classes = (IsAuthenticated, )
+
     def get_object(self, pk):
         try:
             return Genre.objects.get(pk=pk)
