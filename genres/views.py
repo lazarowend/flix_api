@@ -5,7 +5,9 @@ from genres.models import Genre
 from genres.serializers import GenreModelSerializer
 from rest_framework.permissions import IsAuthenticated
 
+
 class CreateListGenre(APIView):
+    
     permission_classes = (IsAuthenticated, )
 
     def get(self, request):
