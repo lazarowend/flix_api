@@ -76,7 +76,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'flix',
         'HOST': 'localhost',
-        'USER': 'admin',
+        'USER': 'ban123',
         'PASSWORD': 'ban123',
         'PORT': '5432'
     }
