@@ -1,9 +1,9 @@
 from django.urls import path
-from . views import CreateListActor, DetailUpdateDeleteActor
+from . views import ListCreateActorView, RetrieveUpdateDestroyActorView
 
 
 urlpatterns = [
-   path('actors/', CreateListActor.as_view(), name='create_list_actor'),
-   path('actors/<int:pk>/', DetailUpdateDeleteActor.as_view(), name='detail_update_delete_actor'),
+   path('actors/', ListCreateActorView.as_view(), name='list_create_actor_view'),
+   path('actors/<int:pk>/', RetrieveUpdateDestroyActorView.as_view(), name='retrieve_update_destroy_actor_view'),
 ]
 
