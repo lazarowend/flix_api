@@ -5,9 +5,11 @@ from django.db.models import Avg
 
 class MovieModelSerializer(serializers.ModelSerializer):
 
+
     class Meta:
         model = Movie
         fields = '__all__'
+
 
     def validate_realeade_date(self, value):
         if value.year < 1990:
