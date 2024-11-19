@@ -4,7 +4,7 @@ from django.db.models import Avg
 
 
 class MovieModelSerializer(serializers.ModelSerializer):
-
+    rate = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Movie
@@ -16,7 +16,6 @@ class MovieModelSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('A data de lançamento não pode ser anterior a 1990.')
         return value
 
-
     def get_rate(self, obj):
         rate = obj.aggregate(Avg('stars'))['stars__avg']
 
@@ -24,4 +23,3 @@ class MovieModelSerializer(serializers.ModelSerializer):
             return rate
         
         return None
-

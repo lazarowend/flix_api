@@ -1,6 +1,9 @@
 from pathlib import Path
 from datetime import timedelta
+import os
+import dotenv
 
+dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -74,11 +77,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'flix',
-        'HOST': 'localhost',
-        'USER': 'ban123',
-        'PASSWORD': 'ban123',
-        'PORT': '5432'
+        'NAME': os.getenv('DB_NAME'),
+        'HOST': os.getenv('HOST'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'PORT': os.getenv('PORT')
     }
 }
 
