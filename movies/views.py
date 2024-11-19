@@ -6,18 +6,27 @@ from rest_framework.views import APIView
 from reviews.models import Review
 from rest_framework import status, response
 from django.db.models import Count, Avg
+from movies.serializers import MovieListDetailSerializer
 
 
 class ListCreateMovieView(ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = Movie.objects.all()
-    serializer_class = MovieModelSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return MovieListDetailSerializer
+        return MovieModelSerializer
 
 
 class RetrieveUpdateDestroyMovieView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     queryset = Movie.objects.all()
-    serializer_class = MovieModelSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return MovieListDetailSerializer
+        return MovieModelSerializer
 
 
 class MovieStatsView(APIView):
