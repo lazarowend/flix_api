@@ -6,4 +6,3 @@ from reviews.models import Review
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('movie', 'stars', 'comment')
     search_fields = ('stars',)
-

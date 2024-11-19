@@ -14,4 +14,3 @@ class RetrieveUpdateDestroyGenreView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Genre.objects.all()
     serializer_class = GenreModelSerializer
-
