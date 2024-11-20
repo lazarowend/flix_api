@@ -20,7 +20,7 @@ class ListCreateMovieView(ListCreateAPIView):
 
 
 class RetrieveUpdateDestroyMovieView(RetrieveUpdateDestroyAPIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     queryset = Movie.objects.all()
 
     def get_serializer_class(self):
